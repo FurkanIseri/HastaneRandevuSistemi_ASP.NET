@@ -1,0 +1,57 @@
+@model HastaneYonetimSistemi.Models.DoktorBilgiViewModel
+@{
+    ViewData["Title"] = "Bilgi Düzenle";
+}
+
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-5 col-xl-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-user-pen text-primary me-2"></i>Bilgi Düzenle</h4>
+                <p class="text-muted small mb-0">Hesap bilgilerinizi güncelleyin.</p>
+            </div>
+            <a href="/Doktor/Index" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-lg-5">
+                <!-- Profile Info Display -->
+                <div class="text-center mb-4 pb-3 border-bottom">
+                    <i class="fa-solid fa-user-doctor text-primary mb-2" style="font-size: 3rem; opacity: 0.8;"></i>
+                    <h5 class="fw-bold mb-0">Dr. @Model.AdSoyad</h5>
+                    <p class="text-muted small mt-1">Doktor Hesabı</p>
+                </div>
+
+                <form asp-action="BilgiDuzenle" method="post">
+                    <div asp-validation-summary="All" class="alert alert-danger rounded-3 mb-3" role="alert"></div>
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success rounded-3 mb-3">
+                            <i class="fa-solid fa-circle-check me-2"></i>@TempData["Message"]
+                        </div>
+                    }
+
+                    <p class="text-muted small fw-semibold text-uppercase mb-3">Şifre Değiştir</p>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Yeni Şifre <span class="text-lowercase fw-normal">(Değiştirmek istemiyorsanız boş bırakın)</span></label>
+                        <input asp-for="YeniSifre" type="password" class="form-control border-0 bg-light" placeholder="Yeni şifreniz" />
+                        <span asp-validation-for="YeniSifre" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Şifre Tekrar</label>
+                        <input asp-for="SifreTekrar" type="password" class="form-control border-0 bg-light" placeholder="Şifrenizi tekrar girin" />
+                        <span asp-validation-for="SifreTekrar" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm">
+                        <i class="fa-solid fa-floppy-disk me-2"></i>Kaydet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

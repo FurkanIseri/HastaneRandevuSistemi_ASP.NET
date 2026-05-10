@@ -1,0 +1,271 @@
+@{
+    ViewData["Title"] = "Hasta Paneli";
+}
+
+<div class="row g-4 fade-in">
+    <!-- Sol Taraf: Profil ve Randevu Alma -->
+    <div class="col-lg-4">
+        <!-- Profil Bilgileri -->
+        <div class="card mb-4 border-0">
+            <div class="card-body text-center p-4">
+                <div class="mb-3">
+                    <i class="fa-solid fa-circle-user text-primary" style="font-size: 5rem; opacity: 0.8;"></i>
+                </div>
+                <h4 class="fw-bold mb-1">@ViewBag.AdSoyad</h4>
+                <p class="text-muted mb-4"><i class="fa-solid fa-id-card me-2"></i>@ViewBag.TC</p>
+                <a href="/Hasta/Receteler" class="btn btn-outline-primary w-100 fw-medium rounded-pill">
+                    <i class="fa-solid fa-notes-medical me-2"></i>Reçetelerim
+                </a>
+            </div>
+        </div>
+
+        <!-- Randevu Paneli — FEATURE 2: multipart form with mandatory file -->
+        <div class="card border-0">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-0">
+                <h5 class="fw-bold"><i class="fa-solid fa-calendar-check text-primary me-2"></i>Randevu Al</h5>
+            </div>
+            <div class="card-body p-4">
+                <!-- enctype="multipart/form-data" required for IFormFile -->
+                <form id="randevuForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Klinik / Branş</label>
+                        <select id="cmbBrans" class="form-select border-0 bg-light">
+                            <option value="">Branş Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Doktor</label>
+                        <select id="cmbDoktor" class="form-select border-0 bg-light">
+                            <option value="">Önce Branş Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Şikayetiniz <span class="text-lowercase fw-normal">(İsteğe bağlı)</span></label>
+                        <textarea id="txtSikayet" class="form-control border-0 bg-light" rows="2" placeholder="Şikayetinizi kısaca belirtebilirsiniz..."></textarea>
+                    </div>
+
+                    <!-- FEATURE 2: Mandatory medical document upload -->
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">
+                            Tıbbi Belge / Fotoğraf
+                            <span class="badge bg-danger ms-1" style="font-size: 0.6rem;">ZORUNLU</span>
+                        </label>
+                        <div class="border-0 bg-light rounded-3 p-3 text-center position-relative" id="belgeArea"
+                             style="border: 2px dashed #dee2e6 !important; cursor: pointer;">
+                            <i class="fa-solid fa-file-medical fa-2x text-muted mb-2 d-block" id="belgeIcon"></i>
+                            <p class="text-muted small mb-0" id="belgeText">X-Ray, tahlil veya fotoğraf yükleyin</p>
+                            <img id="belgePreview" src="#" alt="Önizleme" class="d-none mt-2 rounded-3"
+                                 style="max-width: 100%; max-height: 120px; object-fit: contain;" />
+                            <input type="file" id="txtTibbiBelge" name="TibbiBelge" accept="image/*"
+                                   class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
+                                   style="cursor:pointer;" />
+                        </div>
+                        <div id="belgeHata" class="text-danger small mt-1 d-none">
+                            <i class="fa-solid fa-circle-exclamation me-1"></i>Lütfen tıbbi belgenizi veya şikayetinizin fotoğrafını yükleyiniz.
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selectedRandevuId" value="0" />
+                    <button type="button" id="btnRandevuAl" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm">
+                        <i class="fa-solid fa-calendar-check me-2"></i>Randevuyu Onayla
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sağ Taraf: Randevular -->
+    <div class="col-lg-8">
+        <!-- Aktif Randevular -->
+        <div class="card border-0 mb-4">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-0">
+                <h5 class="fw-bold"><i class="fa-solid fa-calendar-day text-success me-2"></i>Uygun Randevu Saatleri</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0" id="tblAktifRandevular">
+                        <thead class="table-light sticky-top" style="z-index: 1;">
+                            <tr>
+                                <th style="display:none;">ID</th>
+                                <th>Klinik / Branş</th>
+                                <th>Doktor</th>
+                                <th>Tarih</th>
+                                <th>Saat</th>
+                                <th class="text-end pe-4">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-top-0">
+                            <!-- AJAX ile doldurulacak -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geçmiş Randevular -->
+        <div class="card border-0">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-0">
+                <h5 class="fw-bold"><i class="fa-solid fa-clock-rotate-left text-muted me-2"></i>Randevu Geçmişim</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top" style="z-index: 1;">
+                            <tr>
+                                <th>Klinik / Branş</th>
+                                <th>Doktor</th>
+                                <th>Tarih</th>
+                                <th>Saat</th>
+                                <th>Şikayet</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-top-0">
+                            @if (ViewBag.GecmisRandevular != null)
+                            {
+                                foreach (var rand in ViewBag.GecmisRandevular)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-light text-dark border">@rand.Brans</span></td>
+                                        <td class="fw-medium">@rand.Doktor</td>
+                                        <td>@rand.Tarih.ToString("dd.MM.yyyy")</td>
+                                        <td><span class="badge bg-primary bg-opacity-10 text-primary">@rand.Saat.ToString(@"hh\:mm")</span></td>
+                                        <td class="text-muted small">@(string.IsNullOrEmpty(rand.Sikayet) ? "-" : rand.Sikayet)</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+
+            // File preview
+            document.getElementById('txtTibbiBelge').addEventListener('change', function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(ev) {
+                        document.getElementById('belgePreview').src = ev.target.result;
+                        document.getElementById('belgePreview').classList.remove('d-none');
+                        document.getElementById('belgeIcon').classList.add('d-none');
+                        document.getElementById('belgeText').textContent = file.name;
+                        document.getElementById('belgeHata').classList.add('d-none');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            function loadAktifRandevular() {
+                var b = $("#cmbBrans").val() || "";
+                var d = $("#cmbDoktor").val() || "";
+
+                $.getJSON('/Hasta/GetAktifRandevular', { brans: b, doktorId: d }, function(data) {
+                    var tbody = $("#tblAktifRandevular tbody");
+                    tbody.empty();
+                    if (data.length === 0) {
+                        tbody.append('<tr><td colspan="6" class="text-center text-muted py-4"><i class="fa-regular fa-calendar-xmark fa-2x mb-2 d-block text-black-50"></i>Uygun randevu saati bulunamadı.</td></tr>');
+                    } else {
+                        $.each(data, function(i, item) {
+                            var tr = $('<tr>').append(
+                                $('<td style="display:none;">').text(item.id),
+                                $('<td>').html('<span class="badge bg-light text-dark border">' + item.brans + '</span>'),
+                                $('<td class="fw-medium">').text(item.doktor),
+                                $('<td>').text(new Date(item.tarih).toLocaleDateString('tr-TR')),
+                                $('<td>').html('<span class="badge bg-primary bg-opacity-10 text-primary">' + item.saat + '</span>'),
+                                $('<td class="text-end pe-4">').html('<button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-medium btn-sec" data-id="' + item.id + '">Seç</button>')
+                            );
+                            tbody.append(tr);
+                        });
+                    }
+                });
+            }
+
+            loadAktifRandevular();
+
+            $.getJSON('/Hasta/GetBranslar', function(data) {
+                $.each(data, function(i, item) {
+                    $("#cmbBrans").append($('<option>').text(item).attr('value', item));
+                });
+            });
+
+            $("#cmbBrans").change(function() {
+                var brans = $(this).val();
+                $("#cmbDoktor").empty().append('<option value="">Doktor Seçiniz</option>');
+                loadAktifRandevular();
+                if (brans) {
+                    $.getJSON('/Hasta/GetDoktorlar', { brans: brans }, function(data) {
+                        $.each(data, function(i, item) {
+                            $("#cmbDoktor").append($('<option>').text(item.ad).attr('value', item.id));
+                        });
+                    });
+                }
+            });
+
+            $("#cmbDoktor").change(function() { loadAktifRandevular(); });
+
+            $(document).on('click', '.btn-sec', function(e) {
+                e.preventDefault();
+                $('.btn-sec').removeClass('btn-success text-white').addClass('btn-outline-success').html('Seç');
+                $(this).removeClass('btn-outline-success').addClass('btn-success text-white').html('<i class="fa-solid fa-check me-1"></i>Seçildi');
+                $("#selectedRandevuId").val($(this).data('id'));
+            });
+
+            // Randevu Al — send as FormData for file upload
+            $("#btnRandevuAl").click(function(e) {
+                e.preventDefault();
+                var rId = $("#selectedRandevuId").val();
+                var fileInput = document.getElementById('txtTibbiBelge');
+
+                if (rId == "0" || rId == "") {
+                    Swal.fire({ icon: 'warning', title: 'Eksik Seçim', text: 'Lütfen listeden bir randevu saati seçiniz.', confirmButtonColor: '#0e7490', confirmButtonText: 'Tamam' });
+                    return;
+                }
+
+                // Mandatory file validation
+                if (!fileInput.files || fileInput.files.length === 0) {
+                    document.getElementById('belgeHata').classList.remove('d-none');
+                    document.getElementById('belgeArea').style.borderColor = '#dc3545';
+                    Swal.fire({ icon: 'warning', title: 'Belge Eksik', text: 'Lütfen tıbbi belgenizi veya şikayetinizin fotoğrafını yükleyiniz.', confirmButtonColor: '#0e7490', confirmButtonText: 'Tamam' });
+                    return;
+                }
+
+                // Build FormData (supports file upload)
+                var formData = new FormData();
+                formData.append('RandevuId', rId);
+                formData.append('Sikayet', $("#txtSikayet").val());
+                formData.append('TibbiBelge', fileInput.files[0]);
+
+                $("#btnRandevuAl").prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Kaydediliyor...');
+
+                $.ajax({
+                    url: '/Hasta/RandevuAl',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,   // Don't serialize FormData
+                    contentType: false,   // Let browser set multipart boundary
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success', title: 'Randevunuz Onaylandı!',
+                                text: response.message, confirmButtonColor: '#10b981', confirmButtonText: 'Harika'
+                            }).then(() => { location.reload(); });
+                        } else {
+                            Swal.fire({ icon: 'error', title: 'İşlem Başarısız', text: response.message, confirmButtonColor: '#ef4444', confirmButtonText: 'Tamam' });
+                            $("#btnRandevuAl").prop('disabled', false).html('<i class="fa-solid fa-calendar-check me-2"></i>Randevuyu Onayla');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({ icon: 'error', title: 'Sunucu Hatası', text: 'Lütfen tekrar deneyiniz.', confirmButtonColor: '#ef4444' });
+                        $("#btnRandevuAl").prop('disabled', false).html('<i class="fa-solid fa-calendar-check me-2"></i>Randevuyu Onayla');
+                    }
+                });
+            });
+        });
+    </script>
+}

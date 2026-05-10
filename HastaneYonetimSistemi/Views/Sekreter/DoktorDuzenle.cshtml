@@ -1,0 +1,115 @@
+@model HastaneYonetimSistemi.Models.DoktorGuncelleViewModel
+@{
+    ViewData["Title"] = "Doktor Bilgilerini Güncelle";
+}
+
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-user-edit text-primary me-2"></i>Doktor Bilgilerini Güncelle</h4>
+                <p class="text-muted small mb-0">Sadece bu doktoru sisteme kaydeden sekreter güncelleme yapabilir.</p>
+            </div>
+            <a href="/Sekreter/DoktorListesi" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fa-solid fa-arrow-left me-2"></i>Listeye Dön
+            </a>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger rounded-3 d-flex align-items-center mb-4" role="alert">
+                <i class="fa-solid fa-shield-exclamation fa-lg me-3 flex-shrink-0"></i>
+                <div>
+                    <span class="fw-semibold">Yetki Hatası: </span>@ViewBag.Error
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.Error == null || Model.Ad != null)
+        {
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-lg-5">
+                    <form asp-action="DoktorDuzenle" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4" role="alert"></div>
+
+                        <!-- Hidden field to carry doktorId -->
+                        <input type="hidden" asp-for="DoktorId" />
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Ad" class="form-label text-muted small fw-semibold text-uppercase">Ad</label>
+                                <input asp-for="Ad" class="form-control bg-light border-0" placeholder="Doktor adı" />
+                                <span asp-validation-for="Ad" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Soyad" class="form-label text-muted small fw-semibold text-uppercase">Soyad</label>
+                                <input asp-for="Soyad" class="form-control bg-light border-0" placeholder="Doktor soyadı" />
+                                <span asp-validation-for="Soyad" class="text-danger small"></span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Brans" class="form-label text-muted small fw-semibold text-uppercase">Uzmanlık Branşı</label>
+                                <select asp-for="Brans" class="form-select bg-light border-0">
+                                    <option value="">-- Branş Seçiniz --</option>
+                                    @if (ViewBag.Branslar != null)
+                                    {
+                                        foreach (var b in ViewBag.Branslar)
+                                        {
+                                            <option value="@b" selected="@(b == Model.Brans ? "selected" : null)">@b</option>
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="Brans" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <p class="text-muted small fw-semibold text-uppercase mb-2">Şifre Değiştir <span class="fw-normal text-lowercase">(İsteğe bağlı)</span></p>
+                                <input asp-for="YeniSifre" type="password" class="form-control bg-light border-0"
+                                       placeholder="Boş bırakılırsa şifre değişmez" />
+                            </div>
+
+                            <!-- Profile Photo Upload (Optional) -->
+                            <div class="col-12">
+                                <label asp-for="ProfilFotografi" class="form-label text-muted small fw-semibold text-uppercase">
+                                    Profil Fotoğrafı <span class="text-lowercase fw-normal text-muted">(İsteğe Bağlı – Değiştirmek için yeni bir fotoğraf seçin)</span>
+                                </label>
+                                <div class="upload-area border-0 bg-light rounded-3 p-3 text-center position-relative"
+                                     id="uploadArea" style="cursor:pointer; border: 2px dashed #dee2e6 !important;">
+                                    <i class="fa-solid fa-camera fa-2x text-muted mb-2 d-block" id="uploadIcon"></i>
+                                    <p class="text-muted small mb-0" id="uploadText">Fotoğraf seçmek için tıklayın veya sürükleyin</p>
+                                    <img id="fotoPreview" src="#" alt="Önizleme"
+                                         class="d-none mt-3 rounded-circle shadow-sm"
+                                         style="width: 100px; height: 100px; object-fit: cover;" />
+                                    <input asp-for="ProfilFotografi" type="file"
+                                           class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
+                                           style="cursor:pointer;" accept="image/*" id="fotoInput" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm mt-4">
+                            <i class="fa-solid fa-floppy-disk me-2"></i>Değişiklikleri Kaydet
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('fotoInput')?.addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (ev) {
+                    document.getElementById('fotoPreview').src = ev.target.result;
+                    document.getElementById('fotoPreview').classList.remove('d-none');
+                    document.getElementById('uploadIcon').classList.add('d-none');
+                    document.getElementById('uploadText').textContent = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

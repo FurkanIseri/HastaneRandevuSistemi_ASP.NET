@@ -1,0 +1,137 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = HastaneYonetimSistemi
+build_property.RootNamespace = HastaneYonetimSistemi
+build_property.ProjectDir = D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/DoktorGiris.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxEb2t0b3JHaXJpcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/DoktorSifremiUnuttum.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxEb2t0b3JTaWZyZW1pVW51dHR1bS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/HastaGiris.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxIYXN0YUdpcmlzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/HastaSifremiUnuttum.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxIYXN0YVNpZnJlbWlVbnV0dHVtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/SekreterGiris.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxTZWtyZXRlckdpcmlzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Auth/SekreterSifremiUnuttum.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxTZWtyZXRlclNpZnJlbWlVbnV0dHVtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Doktor/BilgiDuzenle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9rdG9yXEJpbGdpRHV6ZW5sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Doktor/Duyurular.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9rdG9yXER1eXVydWxhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Doktor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9rdG9yXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Doktor/YazilanReceteler.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9rdG9yXFlhemlsYW5SZWNldGVsZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Hasta/BilgiDuzenle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFzdGFcQmlsZ2lEdXplbmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Hasta/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFzdGFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Hasta/Receteler.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFzdGFcUmVjZXRlbGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/BilgiDuzenle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcQmlsZ2lEdXplbmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/BransYonetimi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcQnJhbnNZb25ldGltaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/DoktorDuzenle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcRG9rdG9yRHV6ZW5sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/DoktorEkle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcRG9rdG9yRWtsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/DoktorListesi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcRG9rdG9yTGlzdGVzaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/IlacYonetimi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcSWxhY1lvbmV0aW1pLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Sekreter/SekreterYonetimi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VrcmV0ZXJcU2VrcmV0ZXJZb25ldGltaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/projeler/Proje/webProje/HastaneYonetimSistemi/HastaneYonetimSistemi/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-dwjodox4rs

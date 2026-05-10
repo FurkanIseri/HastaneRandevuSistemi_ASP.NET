@@ -1,0 +1,262 @@
+@{
+    ViewData["Title"] = "Doktor Paneli";
+}
+
+<div class="row g-4 fade-in">
+    <!-- Profil ve Reçete -->
+    <div class="col-lg-4">
+        <!-- Profil -->
+        <div class="card mb-4 border-0">
+            <div class="card-body text-center p-4">
+                <!-- FEATURE 1: Show profile photo if available, else default icon -->
+                <div class="mb-3">
+                    @if (ViewBag.ProfilFotoBase64 != null)
+                    {
+                        <img src="@ViewBag.ProfilFotoBase64" alt="Profil Fotoğrafı"
+                             class="rounded-circle shadow-sm"
+                             style="width: 100px; height: 100px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-user-doctor text-primary" style="font-size: 5rem; opacity: 0.8;"></i>
+                    }
+                </div>
+                <h4 class="fw-bold mb-1">Dr. @ViewBag.AdSoyad</h4>
+                <p class="text-muted mb-4"><i class="fa-solid fa-stethoscope me-2"></i>Doktor Paneli</p>
+                <a href="/Doktor/Duyurular" class="btn btn-outline-info w-100 rounded-pill fw-medium">
+                    <i class="fa-solid fa-bullhorn me-2"></i>Hastaneden Duyurular
+                </a>
+                <a href="/Doktor/YazilanReceteler" class="btn btn-outline-primary rounded-pill w-100 mt-2 fw-medium">
+                    <i class="fa-solid fa-file-prescription me-2"></i>Yazılan Reçeteler
+                </a>
+            </div>
+        </div>
+
+        <!-- Reçete Yazma -->
+        <div class="card border-0">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-0">
+                <h5 class="fw-bold"><i class="fa-solid fa-prescription text-primary me-2"></i>Yeni Reçete Oluştur</h5>
+            </div>
+            <div class="card-body p-4">
+                <form id="frmRecete">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Seçili Randevu (ID)</label>
+                        <input type="text" id="txtRandevuId" class="form-control border-0 bg-light fw-bold text-primary" readonly placeholder="Listeden seçiniz" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Tanı / Teşhis</label>
+                        <textarea id="txtTani" class="form-control border-0 bg-light" rows="3" placeholder="Hastanın tanısını giriniz..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">İlaç Seçimi</label>
+                        <select id="cmbIlac" name="ilacId" class="form-select border-0 bg-light">
+                            <option value="">İlaç Seçiniz</option>
+                            @if (ViewBag.Ilaclar != null)
+                            {
+                                foreach (var ilac in (IEnumerable<IlacViewModel>)ViewBag.Ilaclar)
+                                {
+                                    <option value="@ilac.IlacID">@ilac.IlacAd</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Adet</label>
+                            <input type="number" id="txtAdet" name="adet" class="form-control border-0 bg-light" value="1" min="1" />
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Kullanım Şekli</label>
+                            <input type="text" id="txtKullanim" name="kullanimSekli" class="form-control border-0 bg-light" placeholder="Örn: 2x1 Tok Karnına" />
+                        </div>
+                    </div>
+                    <button type="button" id="btnReceteYaz" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm fw-bold">
+                        <i class="fa-solid fa-prescription me-2"></i>Sisteme Kaydet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Randevu Listesi -->
+    <div class="col-lg-8">
+        <div class="card border-0">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i>Aktif Randevularım</h5>
+                <div class="input-group shadow-sm rounded-pill overflow-hidden w-50">
+                    <span class="input-group-text border-0 bg-light ps-3">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control border-0 py-2 ps-2" placeholder="Hasta ara (Ad)..." />
+                </div>
+            </div>
+            <div class="card-body p-0 mt-3">
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0 text-center">
+                        <thead class="table-light sticky-top" style="z-index: 1;">
+                            <tr>
+                                <th>#ID</th>
+                                <th class="text-start">Hasta Adı</th>
+                                <th>Tarih</th>
+                                <th>Saat</th>
+                                <th class="text-start">Şikayet</th>
+                                <th>Belge</th>
+                                <th class="text-end pe-4">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="border-top-0">
+                            @if (ViewBag.Randevular != null)
+                            {
+                                foreach (var r in ViewBag.Randevular)
+                                {
+                                    <tr>
+                                        <td class="fw-bold text-muted">@r.ID</td>
+                                        <td class="text-start fw-medium text-dark"><i class="fa-solid fa-user-circle text-secondary me-2"></i>@r.HastaAd</td>
+                                        <td>@r.Tarih.ToString("dd.MM.yyyy")</td>
+                                        <td><span class="badge bg-primary bg-opacity-10 text-primary">@r.Saat.ToString(@"hh\:mm")</span></td>
+                                        <td class="text-start text-muted small">@(string.IsNullOrEmpty(r.Sikayet) ? "-" : r.Sikayet)</td>
+                                        <td>
+                                            @if (r.TibbiBelgeVar)
+                                            {
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-outline-info rounded-pill px-3 fw-medium btn-belge"
+                                                        data-id="@r.ID"
+                                                        title="Tıbbi belgeyi görüntüle">
+                                                    <i class="fa-solid fa-file-image me-1"></i>Görüntüle
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted small"><i class="fa-solid fa-minus"></i></span>
+                                            }
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            @if (r.IsCompleted)
+                                            {
+                                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                                    <i class="fa-solid fa-check-double me-1"></i>Reçete Yazıldı
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-medium btn-sec" data-id="@r.ID">Seç</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tıbbi Belge Görüntüleme Modalı -->
+<div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-light border-0 py-3">
+                <h5 class="modal-title fw-bold" id="documentModalLabel">
+                    <i class="fa-solid fa-file-medical text-primary me-2"></i>Tıbbi Belge / Şikayet Görseli
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body text-center p-0 bg-dark bg-opacity-10 d-flex align-items-center justify-content-center" style="min-height: 400px;">
+                <img id="documentImage" src="" class="img-fluid shadow-sm" alt="Tıbbi Belge" style="max-height: 80vh;" />
+            </div>
+            <div class="modal-footer border-0 bg-light py-2">
+                <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Kapat</button>
+                <a id="btnDownload" href="#" target="_blank" class="btn btn-primary rounded-pill px-4">
+                    <i class="fa-solid fa-download me-2"></i>Tam Boyut / İndir
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Randevu Seçme
+            $('.btn-sec').click(function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $('#txtRandevuId').val(id);
+                $('.btn-sec').removeClass('btn-primary text-white').addClass('btn-outline-primary').html('Seç');
+                $(this).removeClass('btn-outline-primary').addClass('btn-primary text-white').html('<i class="fa-solid fa-check me-1"></i>Seçildi');
+            });
+
+            // Tıbbi Belge Görüntüleme (Modal)
+            $('.btn-belge').click(function() {
+                var id = $(this).data('id');
+                var url = '/Doktor/TibbiBelgeGoster?randevuId=' + id;
+                
+                $('#documentImage').attr('src', url);
+                $('#btnDownload').attr('href', url);
+                
+                var myModal = new bootstrap.Modal(document.getElementById('documentModal'));
+                myModal.show();
+
+                $('#documentImage').on('error', function() {
+                    $(this).off('error');
+                    Swal.fire({ icon: 'error', title: 'Hata', text: 'Görsel yüklenemedi.', confirmButtonColor: '#ef4444' });
+                    myModal.hide();
+                });
+            });
+
+            // Reçete Yazma
+            $('#btnReceteYaz').click(function(e) {
+                e.preventDefault();
+                var rId = $('#txtRandevuId').val();
+                var tani = $('#txtTani').val();
+                var ilacId = $('#cmbIlac').val();
+                var adet = $('#txtAdet').val();
+                var kullanim = $('#txtKullanim').val();
+
+                if (!rId) {
+                    Swal.fire({ icon: 'warning', title: 'Uyarı', text: 'Lütfen listeden bir randevu seçin.', confirmButtonColor: '#0e7490' });
+                    return;
+                }
+                if (!tani || !ilacId || !kullanim) {
+                    Swal.fire({ icon: 'warning', title: 'Eksik Bilgi', text: 'Tanı, İlaç ve Kullanım alanları zorunludur.', confirmButtonColor: '#0e7490' });
+                    return;
+                }
+
+                $.post('/Doktor/ReceteOlustur', { 
+                    randevuId: rId, 
+                    tani: tani, 
+                    ilacId: ilacId, 
+                    adet: adet, 
+                    kullanimSekli: kullanim
+                }, function(res) {
+                    if (res.success) {
+                        Swal.fire({ icon: 'success', title: 'Başarılı', text: res.message, confirmButtonColor: '#10b981' })
+                            .then(() => {
+                                $('#txtTani').val('');
+                                $('#txtRandevuId').val('');
+                                $('#cmbIlac').val('');
+                                $('#txtAdet').val('1');
+                                $('#txtKullanim').val('');
+                                $('.btn-sec').removeClass('btn-primary text-white').addClass('btn-outline-primary').html('Seç');
+                            });
+                    } else {
+                        Swal.fire({ icon: 'error', title: 'Hata', text: res.message, confirmButtonColor: '#ef4444' });
+                    }
+                });
+            });
+        });
+
+        // Live Search logic
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

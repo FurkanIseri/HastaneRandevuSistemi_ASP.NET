@@ -1,0 +1,73 @@
+@model HastaneYonetimSistemi.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="row justify-content-center align-items-center min-vh-100 fade-in" style="margin-top: -60px;">
+    <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card border-0 shadow-lg" style="border-radius: 1.5rem;">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-user-plus fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">Yeni Hasta Kaydı</h3>
+                    <p class="text-muted small">Lütfen tüm bilgilerinizi eksiksiz doldurunuz.</p>
+                </div>
+                
+                <form asp-action="Register" method="post">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Ad</label>
+                            <input asp-for="Ad" class="form-control bg-light border-0" placeholder="Adınız" />
+                            <span asp-validation-for="Ad" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Soyad</label>
+                            <input asp-for="Soyad" class="form-control bg-light border-0" placeholder="Soyadınız" />
+                            <span asp-validation-for="Soyad" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">TC Kimlik No</label>
+                        <input asp-for="TC" class="form-control bg-light border-0" placeholder="11 Haneli TC Kimlik No" maxlength="11" />
+                        <span asp-validation-for="TC" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Telefon</label>
+                        <input asp-for="Telefon" class="form-control bg-light border-0" placeholder="Örn: 05554443322" />
+                        <span asp-validation-for="Telefon" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Şifre</label>
+                            <input asp-for="Sifre" type="password" class="form-control bg-light border-0" placeholder="Güvenli Şifre" />
+                            <span asp-validation-for="Sifre" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold text-uppercase">Cinsiyet</label>
+                            <select asp-for="Cinsiyet" class="form-select bg-light border-0">
+                                <option value="ERKEK">Erkek</option>
+                                <option value="KADIN">Kadın</option>
+                            </select>
+                            <span asp-validation-for="Cinsiyet" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 mb-4 rounded-pill fw-bold shadow-sm">Kayıt İşlemini Tamamla</button>
+                    
+                    <div class="text-center">
+                        <p class="text-muted mb-0">Zaten hesabınız var mı? <a href="/Auth/HastaGiris" class="text-primary text-decoration-none fw-bold">Giriş Yap</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

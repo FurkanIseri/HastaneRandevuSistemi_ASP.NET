@@ -1,0 +1,53 @@
+@model HastaneYonetimSistemi.Models.GirisViewModel
+@{
+    ViewData["Title"] = "Doktor Girişi";
+}
+
+<div class="row justify-content-center align-items-center min-vh-100 fade-in" style="margin-top: -80px;">
+    <div class="col-md-6 col-lg-5 col-xl-4">
+        <div class="card border-0 shadow-lg" style="border-radius: 1.5rem;">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-user-doctor fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">Doktor Girişi</h3>
+                    <p class="text-muted small">Personel bilgilerinizi giriniz.</p>
+                </div>
+                
+                <form asp-action="DoktorGiris" method="post">
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">TC Kimlik No</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="fa-solid fa-id-card text-muted"></i></span>
+                            <input asp-for="TC" class="form-control form-control-lg bg-light border-0" placeholder="11 Haneli TC Kimlik No" maxlength="11" />
+                        </div>
+                        <span asp-validation-for="TC" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Şifre</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                            <input asp-for="Sifre" type="password" class="form-control form-control-lg bg-light border-0" placeholder="Şifreniz" />
+                        </div>
+                        <span asp-validation-for="Sifre" class="text-danger small mt-1 d-block"></span>
+                        <div class="text-end mt-1">
+                            <a href="/Auth/DoktorSifremiUnuttum" class="text-primary text-decoration-none small fw-medium"><i class="fa-solid fa-key me-1"></i>Şifremi Unuttum</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 mb-4 rounded-pill fw-bold shadow-sm">Giriş Yap</button>
+                    
+                    <div class="text-center">
+                        <a href="/" class="text-muted text-decoration-none small"><i class="fa-solid fa-arrow-left me-1"></i> Ana Sayfaya Dön</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

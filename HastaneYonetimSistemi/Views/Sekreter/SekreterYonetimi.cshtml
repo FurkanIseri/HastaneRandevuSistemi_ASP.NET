@@ -1,0 +1,162 @@
+@model IEnumerable<HastaneYonetimSistemi.Models.SekreterListeItem>
+@{
+    ViewData["Title"] = "Sekreter Yönetimi";
+}
+
+<div class="row g-4 fade-in">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-user-nurse text-primary me-2"></i>Sekreter Yönetimi</h4>
+                <p class="text-muted small mb-0">Sistem yöneticilerini (sekreterleri) buradan yönetin.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary rounded-pill px-4 fw-medium" data-bs-toggle="modal" data-bs-target="#modalSekreterEkle">
+                    <i class="fa-solid fa-user-plus me-2"></i>Yeni Sekreter Ekle
+                </button>
+                <a href="/Sekreter/Index" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+                </a>
+            </div>
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body p-0">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-user-nurse fa-3x text-black-50 mb-3 d-block"></i>
+                        <h6 class="fw-bold text-muted">Kayıtlı sekreter bulunamadı.</h6>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Ad Soyad</th>
+                                    <th>Rol</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="border-top-0">
+                                @foreach (var s in Model)
+                                {
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width:40px;height:40px;">
+                                                    <i class="fa-solid fa-user-nurse"></i>
+                                                </div>
+                                                <span class="fw-medium">@s.AdSoyad</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-semibold">
+                                                <i class="fa-solid fa-user-shield me-1"></i> @s.RolAd
+                                            </span>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Sekreter Ekle -->
+<div class="modal fade" id="modalSekreterEkle" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus text-primary me-2"></i>Yeni Sekreter Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Ad</label>
+                        <input type="text" id="txtSekAd" class="form-control border-0 bg-light" placeholder="Ad" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Soyad</label>
+                        <input type="text" id="txtSekSoyad" class="form-control border-0 bg-light" placeholder="Soyad" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">TC Kimlik No</label>
+                        <input type="text" id="txtSekTC" class="form-control border-0 bg-light" maxlength="11" placeholder="11 haneli TC" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Şifre</label>
+                        <input type="password" id="txtSekSifre" class="form-control border-0 bg-light" placeholder="Giriş şifresi" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small fw-semibold text-uppercase">Cinsiyet</label>
+                        <select id="txtSekCinsiyet" class="form-select border-0 bg-light">
+                            <option value="">-- Seçiniz --</option>
+                            <option value="Erkek">Erkek</option>
+                            <option value="Kadın">Kadın</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">İptal</button>
+                <button id="btnSekreterEkle" class="btn btn-primary rounded-pill px-4 fw-medium">
+                    <i class="fa-solid fa-user-plus me-2"></i>Ekle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $('#btnSekreterEkle').click(function() {
+        var ad = $('#txtSekAd').val().trim();
+        var soyad = $('#txtSekSoyad').val().trim();
+        var tc = $('#txtSekTC').val().trim();
+        var sifre = $('#txtSekSifre').val();
+        var cinsiyet = $('#txtSekCinsiyet').val();
+        if (!ad || !soyad || !tc || !sifre || !cinsiyet) {
+            Swal.fire({ icon:'warning', title:'Eksik Bilgi', text:'Tüm alanları (Cinsiyet dahil) doldurunuz.', confirmButtonColor:'#0e7490' });
+            return;
+        }
+        $.post('/Sekreter/SekreterEkle', { ad, soyad, tc, sifre, cinsiyet }, function(res) {
+            if (res.success) {
+                Swal.fire({ icon:'success', title:'Başarılı', text:res.message, confirmButtonColor:'#10b981' })
+                    .then(() => location.reload());
+            } else {
+                Swal.fire({ icon:'error', title:'Hata', text:res.message, confirmButtonColor:'#ef4444' });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-sil', function() {
+        var id = $(this).data('id');
+        var ad = $(this).data('ad');
+        Swal.fire({
+            icon:'warning', title:'Silmek istediğinize emin misiniz?',
+            text:`${ad} adlı sekreter silinecek.`,
+            showCancelButton:true, confirmButtonColor:'#ef4444', cancelButtonColor:'#6c757d',
+            confirmButtonText:'Evet, Sil', cancelButtonText:'İptal'
+        }).then(result => {
+            if (result.isConfirmed) {
+                $.post('/Sekreter/SekreterSil', { sekreterID: id }, function(res) {
+                    if (res.success) {
+                        Swal.fire({ icon:'success', title:'Silindi', text:res.message, confirmButtonColor:'#10b981' })
+                            .then(() => location.reload());
+                    } else {
+                        Swal.fire({ icon:'error', title:'Hata', text:res.message, confirmButtonColor:'#ef4444' });
+                    }
+                });
+            }
+        });
+    });
+</script>
+}

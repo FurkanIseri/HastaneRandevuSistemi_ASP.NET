@@ -1,0 +1,100 @@
+@model IEnumerable<HastaneYonetimSistemi.Controllers.YazilanReceteViewModel>
+@{
+    ViewData["Title"] = "Yazılan Reçeteler";
+}
+
+<div class="row g-4 fade-in">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-file-prescription text-primary me-2"></i>Yazılan Reçeteler</h4>
+                <p class="text-muted small mb-0">Geçmişte hastalarınıza yazdığınız tüm reçetelerin listesi.</p>
+            </div>
+            <div>
+                <a href="/Doktor/Index" class="btn btn-outline-secondary rounded-pill px-4 fw-medium">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+                </a>
+            </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6 offset-md-6">
+                <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                    <span class="input-group-text border-0 bg-white ps-4">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control border-0 py-2 ps-2" placeholder="Reçete ara (Hasta veya İlaç)..." />
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-folder-open fa-3x text-black-50 mb-3 d-block"></i>
+                        <h6 class="fw-bold text-muted">Henüz hiç reçete yazmadınız.</h6>
+                        <p class="text-muted small">Aktif randevularınızdan hasta seçerek reçete oluşturabilirsiniz.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Reçete No</th>
+                                    <th>Tarih</th>
+                                    <th>Hasta Adı Soyadı</th>
+                                    <th>Tanı / Teşhis</th>
+                                    <th>İlaç</th>
+                                    <th>Adet</th>
+                                    <th class="pe-4">Kullanım Şekli</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="border-top-0">
+                                @foreach (var r in Model)
+                                {
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-muted">#@r.ReceteNo</td>
+                                        <td>@r.Tarih.ToString("dd.MM.yyyy")</td>
+
+                                        @* İŞTE DÜZELTTİĞİMİZ KISIM BURASI *@
+                                        <td class="text-start fw-medium text-dark">
+                                            <i class="fa-solid fa-user text-secondary me-2"></i>@r.HastaAdSoyad
+                                        </td>
+
+                                        <td>@r.Tani</td>
+                                        <td>
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
+                                                <i class="fa-solid fa-pills me-1"></i>@r.IlacAd
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">@r.Adet Adet</span>
+                                        </td>
+                                        <td class="pe-4 text-muted small">@r.KullanimSekli</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,47 @@
+@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Hastane Duyuruları";
+}
+
+<div class="row g-4 fade-in justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-bullhorn text-primary me-2"></i>Hastane Duyuruları</h4>
+                <p class="text-muted small mb-0">Yönetim tarafından paylaşılan güncel duyurular.</p>
+            </div>
+            <a href="/Doktor/Index" class="btn btn-outline-primary rounded-pill px-4 fw-medium">
+                <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+            </a>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var duyuru in Model)
+            {
+                <div class="card border-0 mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 44px; height: 44px;">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 text-dark">@duyuru</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="card border-0">
+                <div class="card-body text-center py-5">
+                    <i class="fa-regular fa-bell-slash fa-3x text-black-50 mb-3 d-block"></i>
+                    <h6 class="fw-bold text-muted">Duyuru Bulunmuyor</h6>
+                    <p class="text-muted small mb-0">Şu an için yayınlanmış bir duyuru bulunmamaktadır.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

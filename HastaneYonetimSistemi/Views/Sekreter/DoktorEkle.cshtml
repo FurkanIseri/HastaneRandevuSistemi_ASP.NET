@@ -1,0 +1,108 @@
+@model HastaneYonetimSistemi.Models.DoktorEkleViewModel
+@{
+    ViewData["Title"] = "Yeni Doktor Ekle";
+}
+
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-user-plus text-primary me-2"></i>Yeni Doktor Ekle</h4>
+                <p class="text-muted small mb-0">Sisteme yeni bir doktor kaydı oluşturun.</p>
+            </div>
+            <a href="/Sekreter/DoktorListesi" class="btn btn-outline-primary rounded-pill px-4 fw-medium">
+                <i class="fa-solid fa-list me-2"></i>Doktor Listesi
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-lg-5">
+                <form asp-action="DoktorEkle" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4" role="alert"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Ad" class="form-label text-muted small fw-semibold text-uppercase">Ad</label>
+                            <input asp-for="Ad" class="form-control bg-light border-0" placeholder="Doktor adı" />
+                            <span asp-validation-for="Ad" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Soyad" class="form-label text-muted small fw-semibold text-uppercase">Soyad</label>
+                            <input asp-for="Soyad" class="form-control bg-light border-0" placeholder="Doktor soyadı" />
+                            <span asp-validation-for="Soyad" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="TC" class="form-label text-muted small fw-semibold text-uppercase">TC Kimlik No</label>
+                            <input asp-for="TC" class="form-control bg-light border-0" maxlength="11" placeholder="11 haneli TC No" />
+                            <span asp-validation-for="TC" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Sifre" class="form-label text-muted small fw-semibold text-uppercase">Şifre</label>
+                            <input asp-for="Sifre" type="password" class="form-control bg-light border-0" placeholder="Giriş şifresi" />
+                            <span asp-validation-for="Sifre" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Brans" class="form-label text-muted small fw-semibold text-uppercase">Uzmanlık Branşı</label>
+                            <select asp-for="Brans" class="form-select bg-light border-0">
+                                <option value="">-- Branş Seçiniz --</option>
+                                @if (ViewBag.Branslar != null)
+                                {
+                                    foreach (var b in ViewBag.Branslar)
+                                    {
+                                        <option value="@b">@b</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="Brans" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Cinsiyet" class="form-label text-muted small fw-semibold text-uppercase">Cinsiyet</label>
+                            <select asp-for="Cinsiyet" class="form-select bg-light border-0">
+                                <option value="">-- Seçiniz --</option>
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                            </select>
+                            <span asp-validation-for="Cinsiyet" class="text-danger small"></span>
+                        </div>
+
+                        <!-- FEATURE 1: Profile Photo Upload (Optional) -->
+                        <div class="col-12">
+                            <label asp-for="ProfilFotografi" class="form-label text-muted small fw-semibold text-uppercase">
+                                Profil Fotoğrafı <span class="text-lowercase fw-normal text-muted">(İsteğe Bağlı)</span>
+                            </label>
+                            <div class="upload-area border-0 bg-light rounded-3 p-3 text-center position-relative" id="uploadArea" style="cursor:pointer; border: 2px dashed #dee2e6 !important;">
+                                <i class="fa-solid fa-camera fa-2x text-muted mb-2 d-block" id="uploadIcon"></i>
+                                <p class="text-muted small mb-0" id="uploadText">Fotoğraf seçmek için tıklayın veya sürükleyin</p>
+                                <img id="fotoPreview" src="#" alt="Önizleme" class="d-none mt-3 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;" />
+                                <input asp-for="ProfilFotografi" type="file" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" style="cursor:pointer;" accept="image/*" id="fotoInput" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm mt-4">
+                        <i class="fa-solid fa-user-plus me-2"></i>Doktoru Sisteme Ekle
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Image preview
+        document.getElementById('fotoInput').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    document.getElementById('fotoPreview').src = ev.target.result;
+                    document.getElementById('fotoPreview').classList.remove('d-none');
+                    document.getElementById('uploadIcon').classList.add('d-none');
+                    document.getElementById('uploadText').textContent = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

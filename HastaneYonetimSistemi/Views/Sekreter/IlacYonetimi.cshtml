@@ -1,0 +1,164 @@
+@model IEnumerable<HastaneYonetimSistemi.Models.IlacViewModel>
+@{
+    ViewData["Title"] = "İlaç Yönetimi";
+}
+
+<div class="row g-4 fade-in">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-pills text-primary me-2"></i>İlaç Yönetimi</h4>
+                <p class="text-muted small mb-0">Sistemdeki ilaçları yönetin. Doktorlar reçete yazarken bu listeden seçim yapar.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary rounded-pill px-4 fw-medium" data-bs-toggle="modal" data-bs-target="#modalIlacEkle">
+                    <i class="fa-solid fa-plus me-2"></i>Yeni İlaç Ekle
+                </button>
+                <a href="/Sekreter/Index" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+                </a>
+            </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6 offset-md-6">
+                <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                    <span class="input-group-text border-0 bg-white ps-4">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control border-0 py-2 ps-2" placeholder="İlaç ara (Ad veya ID)..." />
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body p-0">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-pills fa-3x text-black-50 mb-3 d-block"></i>
+                        <h6 class="fw-bold text-muted">Kayıtlı ilaç bulunamadı.</h6>
+                        <p class="text-muted small">Reçete yazılabilmesi için en az bir ilaç ekleyin.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">#</th>
+                                    <th>İlaç Adı</th>
+                                    <th>Stok Adedi</th>
+                                    <th class="text-end pe-4">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="border-top-0">
+                                @foreach (var i in Model)
+                                {
+                                    <tr>
+                                        <td class="ps-4 text-muted fw-bold">@i.IlacID</td>
+                                        <td>
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
+                                                <i class="fa-solid fa-pills me-1"></i>@i.IlacAd
+                                            </span>
+                                        </td>
+                                        <td class="text-muted small">
+                                            <span class="badge bg-secondary">@i.StokAdet Adet</span>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-medium btn-sil"
+                                                    data-id="@i.IlacID" data-ad="@i.IlacAd">
+                                                <i class="fa-solid fa-trash me-1"></i>Sil
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalIlacEkle" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-pills text-primary me-2"></i>Yeni İlaç Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-semibold text-uppercase">İlaç Adı</label>
+                    <input type="text" id="txtIlacAd" class="form-control border-0 bg-light" placeholder="Örn: Parol 500mg" />
+                </div>
+                <div>
+                    <label class="form-label text-muted small fw-semibold text-uppercase">Stok Adedi</label>
+                    <input type="number" id="txtStokAdet" class="form-control border-0 bg-light" placeholder="Örn: 100" min="0" value="0" />
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">İptal</button>
+                <button id="btnIlacEkle" class="btn btn-primary rounded-pill px-4 fw-medium">
+                    <i class="fa-solid fa-plus me-2"></i>Ekle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#btnIlacEkle').click(function() {
+            var ad = $('#txtIlacAd').val().trim();
+            var stok = $('#txtStokAdet').val().trim();
+
+            if (!ad) { Swal.fire({ icon:'warning', title:'Uyarı', text:'İlaç adı boş olamaz.', confirmButtonColor:'#0e7490' }); return; }
+
+            // AJAX isteği de stokAdet parametresi ile güncellendi
+            $.post('/Sekreter/IlacEkle', { ilacAd: ad, stokAdet: stok }, function(res) {
+                if (res.success) {
+                    Swal.fire({ icon:'success', title:'Başarılı', text:res.message, confirmButtonColor:'#10b981' })
+                        .then(() => location.reload());
+                } else {
+                    Swal.fire({ icon:'error', title:'Hata', text:res.message, confirmButtonColor:'#ef4444' });
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-sil', function() {
+            var id = $(this).data('id');
+            var ad = $(this).data('ad');
+            Swal.fire({
+                icon: 'warning', title: 'Silmek istediğinize emin misiniz?',
+                text: `"${ad}" ilacı silinecek.`,
+                showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Evet, Sil', cancelButtonText: 'İptal'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    $.post('/Sekreter/IlacSil', { ilacId: id }, function(res) {
+                        if (res.success) {
+                            Swal.fire({ icon:'success', title:'Silindi', text:res.message, confirmButtonColor:'#10b981' })
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire({ icon:'error', title:'Hata', text:res.message, confirmButtonColor:'#ef4444' });
+                        }
+                    });
+                }
+            });
+        });
+
+        // Live Search logic
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

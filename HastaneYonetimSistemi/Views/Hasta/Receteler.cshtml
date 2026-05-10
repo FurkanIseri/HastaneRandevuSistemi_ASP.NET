@@ -1,0 +1,63 @@
+@model IEnumerable<HastaneYonetimSistemi.Models.ReceteViewModel>
+@{
+    ViewData["Title"] = "Reçetelerim";
+}
+
+<div class="row g-4 fade-in">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="fa-solid fa-notes-medical text-primary me-2"></i>Reçetelerim</h4>
+                <p class="text-muted small mb-0">Doktorunuz tarafından yazılan tüm reçeteleriniz aşağıda listelenmektedir.</p>
+            </div>
+            <a href="/Hasta/Index" class="btn btn-outline-primary rounded-pill px-4 fw-medium">
+                <i class="fa-solid fa-arrow-left me-2"></i>Panele Dön
+            </a>
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body p-0">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <i class="fa-regular fa-folder-open fa-3x text-black-50 mb-3 d-block"></i>
+                        <h6 class="fw-bold text-muted">Henüz reçete bulunmuyor</h6>
+                        <p class="text-muted small">Size yazılmış bir reçete bulunmamaktadır.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Reçete No</th>
+                                    <th>Tanı / Teşhis</th>
+                                    <th>İlaç</th>
+                                    <th class="pe-4">Kullanım Talimatı</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-top-0">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="ps-4">
+                                            <span class="badge bg-primary bg-opacity-10 text-primary fw-bold fs-6">#@item.ReceteID</span>
+                                        </td>
+                                        <td class="fw-medium">@item.Tani</td>
+                                        <td>
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
+                                                <i class="fa-solid fa-pills me-1"></i>@item.IlacAd
+                                            </span>
+                                        </td>
+                                        <td class="text-muted small pe-4">@item.KullanimTalimati</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
