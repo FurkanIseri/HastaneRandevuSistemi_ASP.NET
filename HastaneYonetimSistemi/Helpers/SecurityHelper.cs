@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +13,10 @@ namespace HastaneYonetimSistemi.Helpers
     // Bu siniftaki kodlar bizim veritabanında verilerin saklanması konusunda önemlidir.
     public static class SecurityHelper
     {
-        // BU ANAHTAR 32 KARAKTER OLMALI VE ASLA DEĞİŞMEMELİ!
+        // BU ANAHTAR 32 KARAKTER OLMALI VE ASLA DEÄİÅMEMELİ!
         private static readonly string SecretKey = "9z$B&E)H@McQfTjWnZr4u7x!A%D*G-Ka";
 
-        // 1. HASH OLUŞTURMA (Arama için)
+        // 1. HASH OLUÅTURMA (Arama için)
         public static string Hashle(string tcKimlikNo)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -31,7 +31,7 @@ namespace HastaneYonetimSistemi.Helpers
             }
         }
 
-        // 2. ŞİFRELEME (Kaydetme için)
+        // 2. ÅİFRELEME (Kaydetme için)
         public static string Sifrele(string tcKimlikNo)
         {
             byte[] iv = new byte[16];
@@ -52,14 +52,14 @@ namespace HastaneYonetimSistemi.Helpers
                     }
                 }
             }
-            // IV ve Şifreli Veriyi birleştirip Base64 yapıyoruz
+            // IV ve Åifreli Veriyi birleştirip Base64 yapıyoruz
             var combinedIvAndCipher = new byte[iv.Length + array.Length];
             Array.Copy(iv, 0, combinedIvAndCipher, 0, iv.Length);
             Array.Copy(array, 0, combinedIvAndCipher, iv.Length, array.Length);
             return Convert.ToBase64String(combinedIvAndCipher);
         }
 
-        // 3. ŞİFRE ÇÖZME (Okuma için)
+        // 3. ÅİFRE ÇÖZME (Okuma için)
         public static string Coz(string sifreliMetin)
         {
             byte[] fullCipher = Convert.FromBase64String(sifreliMetin);

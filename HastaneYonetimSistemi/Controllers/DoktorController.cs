@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.Helpers;
 using Npgsql;
@@ -98,7 +98,7 @@ namespace HastaneYonetimSistemi.Controllers
         }
 
         // ================================================================
-        // REÇETE OLUŞTUR (TEK REÇETE KONTROLÜ EKLENDİ)
+        // REÇETE OLUÅTUR (TEK REÇETE KONTROLÜ EKLENDİ)
         // ================================================================
         [HttpPost]
         public IActionResult ReceteOlustur(int randevuId, string tani, int ilacId, int adet, string kullanimSekli)
@@ -242,7 +242,7 @@ namespace HastaneYonetimSistemi.Controllers
         }
 
         // ================================================================
-        // BİLGİ DÜZENLE (Şifre Güncelleme)
+        // BİLGİ DÜZENLE (Åifre Güncelleme)
         // ================================================================
         [HttpGet]
         public IActionResult BilgiDuzenle()
@@ -268,7 +268,7 @@ namespace HastaneYonetimSistemi.Controllers
             if (string.IsNullOrEmpty(TC)) return RedirectIfNoSession();
             if (!string.IsNullOrEmpty(model.YeniSifre) && model.YeniSifre != model.SifreTekrar)
             {
-                ModelState.AddModelError("SifreTekrar", "Şifreler eşleşmiyor.");
+                ModelState.AddModelError("SifreTekrar", "Åifreler eşleşmiyor.");
                 return View(model);
             }
             using var conn = _bgl.baglanti();

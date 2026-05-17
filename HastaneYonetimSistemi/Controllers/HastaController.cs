@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.Helpers;
 using Npgsql;
@@ -235,7 +235,7 @@ namespace HastaneYonetimSistemi.Controllers
         }
 
         // ================================================================
-        // BİLGİ DÜZENLE (Telefon + Şifre)
+        // BİLGİ DÜZENLE (Telefon + Åifre)
         // ================================================================
         [HttpGet]
         public IActionResult BilgiDuzenle()
@@ -269,7 +269,7 @@ namespace HastaneYonetimSistemi.Controllers
             if (string.IsNullOrEmpty(TC)) return RedirectIfNoSession();
             if (!string.IsNullOrEmpty(model.YeniSifre) && model.YeniSifre != model.SifreTekrar)
             {
-                ModelState.AddModelError("SifreTekrar", "Şifreler eşleşmiyor.");
+                ModelState.AddModelError("SifreTekrar", "Åifreler eşleşmiyor.");
                 return View(model);
             }
             if (!ModelState.IsValid) return View(model);
@@ -285,7 +285,7 @@ namespace HastaneYonetimSistemi.Controllers
                     cmd.Parameters.AddWithValue("@p2", hash);
                     cmd.ExecuteNonQuery();
                 }
-                // Şifre güncellenmişse veritabanına yansıt
+                // Åifre güncellenmişse veritabanına yansıt
                 if (!string.IsNullOrEmpty(model.YeniSifre))
                 {
                     using var cmd2 = new NpgsqlCommand("UPDATE Hastalar SET sifre_hash=@p1, sifre_sifreli=@p2 WHERE tc_hash=@p3", conn);

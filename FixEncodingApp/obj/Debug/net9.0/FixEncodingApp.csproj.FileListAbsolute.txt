@@ -1,0 +1,15 @@
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\bin\Debug\net9.0\FixEncodingApp.exe
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\bin\Debug\net9.0\FixEncodingApp.deps.json
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\bin\Debug\net9.0\FixEncodingApp.runtimeconfig.json
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\bin\Debug\net9.0\FixEncodingApp.dll
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\bin\Debug\net9.0\FixEncodingApp.pdb
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.AssemblyInfoInputs.cache
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.AssemblyInfo.cs
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.csproj.CoreCompileInputs.cache
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.sourcelink.json
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.dll
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\refint\FixEncodingApp.dll
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.pdb
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\FixEncodingApp.genruntimeconfig.cache
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\FixEncodingApp\obj\Debug\net9.0\ref\FixEncodingApp.dll

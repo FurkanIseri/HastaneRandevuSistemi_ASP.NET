@@ -35,4 +35,5 @@ D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug
 D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug\net8.0\HastaneYonetimSistemi.pdb
 D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug\net8.0\HastaneYonetimSistemi.genruntimeconfig.cache
 D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug\net8.0\ref\HastaneYonetimSistemi.dll
+D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug\net8.0\HastaneYonetimSistemi.sourcelink.json
 D:\projeler\Proje\webProje\HastaneYonetimSistemi\HastaneYonetimSistemi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

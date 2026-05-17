@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
@@ -226,3 +226,4 @@ namespace HastaneYonetimSistemi.Models
         public IFormFile? ProfilFotografi { get; set; }
     }
 }
+

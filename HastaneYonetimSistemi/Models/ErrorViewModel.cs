@@ -1,4 +1,4 @@
-namespace HastaneYonetimSistemi.Models
+﻿namespace HastaneYonetimSistemi.Models
 {
     public class ErrorViewModel
     {

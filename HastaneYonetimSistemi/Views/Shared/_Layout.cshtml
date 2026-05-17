@@ -92,6 +92,18 @@
                 });
                 </text>
             }
+
+            @if(TempData["Error"] != null)
+            {
+                <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    text: '@Html.Raw(TempData["Error"])',
+                    confirmButtonColor: '#d33'
+                });
+                </text>
+            }
         });
     </script>
 

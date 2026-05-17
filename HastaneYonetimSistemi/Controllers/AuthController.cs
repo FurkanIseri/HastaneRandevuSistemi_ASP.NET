@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.Helpers;
 using Npgsql;
@@ -14,7 +14,7 @@ namespace HastaneYonetimSistemi.Controllers
             _bgl = new sqlBaglanti(configuration);
         }
 
-        // ======================== HASTA GİRİŞİ ========================
+        // ======================== HASTA GİRİÅİ ========================
         [HttpGet]
         public IActionResult HastaGiris()
         {
@@ -45,7 +45,7 @@ namespace HastaneYonetimSistemi.Controllers
                     return RedirectToAction("Index", "Hasta");
                 }
 
-                ViewBag.Error = "Hatalı TC Kimlik No veya Şifre!";
+                ViewBag.Error = "Hatalı TC Kimlik No veya Åifre!";
                 return View(model);
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace HastaneYonetimSistemi.Controllers
             }
         }
 
-        // ======================== DOKTOR GİRİŞİ ========================
+        // ======================== DOKTOR GİRİÅİ ========================
         [HttpGet]
         public IActionResult DoktorGiris()
         {
@@ -86,7 +86,7 @@ namespace HastaneYonetimSistemi.Controllers
                     return RedirectToAction("Index", "Doktor");
                 }
 
-                ViewBag.Error = "Hatalı TC Kimlik No veya Şifre!";
+                ViewBag.Error = "Hatalı TC Kimlik No veya Åifre!";
                 return View(model);
             }
             catch (Exception ex)
@@ -96,7 +96,7 @@ namespace HastaneYonetimSistemi.Controllers
             }
         }
 
-        // ======================== SEKRETER GİRİŞİ ========================
+        // ======================== SEKRETER GİRİÅİ ========================
         [HttpGet]
         public IActionResult SekreterGiris()
         {
@@ -127,7 +127,7 @@ namespace HastaneYonetimSistemi.Controllers
                     return RedirectToAction("Index", "Sekreter");
                 }
 
-                ViewBag.Error = "Hatalı TC Kimlik No veya Şifre!";
+                ViewBag.Error = "Hatalı TC Kimlik No veya Åifre!";
                 return View(model);
             }
             catch (Exception ex)
@@ -210,7 +210,7 @@ namespace HastaneYonetimSistemi.Controllers
             }
         }
 
-        // ======================== ŞİFREMİ UNUTTUM ========================
+        // ======================== ÅİFREMİ UNUTTUM ========================
         [HttpGet]
         public IActionResult HastaSifremiUnuttum()
         {
@@ -237,7 +237,7 @@ namespace HastaneYonetimSistemi.Controllers
                 if (result != null && result != DBNull.Value)
                 {
                     string sifre = SecurityHelper.Coz(result.ToString());
-                    ViewBag.Mesaj = $"Şifreniz: {sifre}";
+                    ViewBag.Mesaj = $"Åifreniz: {sifre}";
                     return View();
                 }
 
@@ -277,7 +277,7 @@ namespace HastaneYonetimSistemi.Controllers
                 if (result != null && result != DBNull.Value)
                 {
                     string sifre = SecurityHelper.Coz(result.ToString());
-                    ViewBag.Mesaj = $"Şifreniz: {sifre}";
+                    ViewBag.Mesaj = $"Åifreniz: {sifre}";
                     return View();
                 }
 
@@ -317,7 +317,7 @@ namespace HastaneYonetimSistemi.Controllers
                 if (result != null && result != DBNull.Value)
                 {
                     string sifre = SecurityHelper.Coz(result.ToString());
-                    ViewBag.Mesaj = $"Şifreniz: {sifre}";
+                    ViewBag.Mesaj = $"Åifreniz: {sifre}";
                     return View();
                 }
 
@@ -331,7 +331,7 @@ namespace HastaneYonetimSistemi.Controllers
             }
         }
 
-        // ======================== ÇIKIŞ ========================
+        // ======================== ÇIKIÅ ========================
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
