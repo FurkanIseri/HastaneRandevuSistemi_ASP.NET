@@ -118,7 +118,6 @@
 
             if (!ad) { Swal.fire({ icon:'warning', title:'Uyarı', text:'İlaç adı boş olamaz.', confirmButtonColor:'#0e7490' }); return; }
 
-            // AJAX isteği de stokAdet parametresi ile güncellendi
             $.post('/Sekreter/IlacEkle', { ilacAd: ad, stokAdet: stok }, function(res) {
                 if (res.success) {
                     Swal.fire({ icon:'success', title:'Başarılı', text:res.message, confirmButtonColor:'#10b981' })

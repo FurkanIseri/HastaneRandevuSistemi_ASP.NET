@@ -1,12 +1,11 @@
-﻿using HastaneYonetimSistemi.Models;
-using System.Collections.Generic;
+using HastaneYonetimSistemi.Models;
 
 namespace HastaneYonetimSistemi.Services.Interfaces
 {
     public interface IIlacService
     {
         IEnumerable<IlacViewModel> GetAllIlaclar();
-        (bool Success, string Message) EkleIlac(string ilacAd, int stokAdet);
-        (bool Success, string Message) SilIlac(int ilacId);
+        ServiceResult EkleIlac(string ilacAd, int stokAdet);
+        ServiceResult SilIlac(int ilacId);
     }
 }

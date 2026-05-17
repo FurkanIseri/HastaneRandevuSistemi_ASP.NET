@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
@@ -224,6 +224,17 @@ namespace HastaneYonetimSistemi.Models
 
         // Optional: new profile photo
         public IFormFile? ProfilFotografi { get; set; }
+    }
+
+    public class YazilanReceteViewModel
+    {
+        public int ReceteNo { get; set; }
+        public DateTime Tarih { get; set; }
+        public string HastaAdSoyad { get; set; } = string.Empty;
+        public string Tani { get; set; } = string.Empty;
+        public string IlacAd { get; set; } = string.Empty;
+        public int Adet { get; set; }
+        public string KullanimSekli { get; set; } = string.Empty;
     }
 }
 

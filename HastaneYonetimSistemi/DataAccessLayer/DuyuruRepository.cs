@@ -1,6 +1,5 @@
-﻿using System;
-using HastaneYonetimSistemi.Helpers;
 using HastaneYonetimSistemi.DataAccessLayer.Interfaces;
+using HastaneYonetimSistemi.Helpers;
 using Npgsql;
 
 namespace HastaneYonetimSistemi.DataAccessLayer
@@ -21,6 +20,16 @@ namespace HastaneYonetimSistemi.DataAccessLayer
             cmd.Parameters.AddWithValue("@p1", duyuruText);
             cmd.Parameters.AddWithValue("@p2", sekreterId);
             cmd.ExecuteNonQuery();
+        }
+
+        public IEnumerable<string> GetAll()
+        {
+            var list = new List<string>();
+            using var conn = _bgl.baglanti();
+            using var cmd = new NpgsqlCommand("SELECT duyurular_text FROM duyurular ORDER BY duyurular_id DESC", conn);
+            using var dr = cmd.ExecuteReader();
+            while (dr.Read()) list.Add(dr[0].ToString()!);
+            return list;
         }
     }
 }

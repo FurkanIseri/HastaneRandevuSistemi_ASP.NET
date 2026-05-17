@@ -1,5 +1,4 @@
-﻿using HastaneYonetimSistemi.Models;
-using System.Collections.Generic;
+using HastaneYonetimSistemi.Models;
 
 namespace HastaneYonetimSistemi.Services.Interfaces
 {
@@ -7,7 +6,7 @@ namespace HastaneYonetimSistemi.Services.Interfaces
     {
         IEnumerable<BransViewModel> GetAllBranslar();
         IEnumerable<string> GetAllBransNames();
-        (bool Success, string Message) EkleBrans(string bransAd);
-        (bool Success, string Message) SilBrans(int bransId);
+        ServiceResult EkleBrans(string bransAd);
+        ServiceResult SilBrans(int bransId);
     }
 }

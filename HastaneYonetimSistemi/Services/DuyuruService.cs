@@ -1,6 +1,7 @@
-﻿using HastaneYonetimSistemi.DataAccessLayer.Interfaces;
+using HastaneYonetimSistemi.DataAccessLayer.Interfaces;
+using HastaneYonetimSistemi.Helpers;
+using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.Services.Interfaces;
-using System;
 
 namespace HastaneYonetimSistemi.Services
 {
@@ -15,25 +16,22 @@ namespace HastaneYonetimSistemi.Services
             _sekreterRepository = sekreterRepository;
         }
 
-        public (bool Success, string Message) OlusturDuyuru(string duyuruText, string sekreterTcHash)
+        public ServiceResult OlusturDuyuru(string duyuruText, string sekreterTcHash)
         {
             if (string.IsNullOrWhiteSpace(duyuruText))
-                return (false, "Duyuru boş olamaz.");
-
+                return ServiceResult.Fail("Duyuru boş olamaz.");
             try
             {
-                Guid sekreterId = _sekreterRepository.GetSekreterIdByTcHash(sekreterTcHash);
+                string tcHash = SecurityHelper.Hashle(sekreterTcHash);
+                Guid sekreterId = _sekreterRepository.GetSekreterIdByTcHash(tcHash);
                 if (sekreterId == Guid.Empty)
-                {
-                    return (false, "Sekreter bilgisi bulunamadı.");
-                }
-
+                    return ServiceResult.Fail("Sekreter bilgisi bulunamadı.");
                 _duyuruRepository.Add(duyuruText, sekreterId);
-                return (true, "Duyuru yayınlandı.");
+                return ServiceResult.Ok("Duyuru yayınlandı.");
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                return ServiceResult.Fail(ex.Message);
             }
         }
     }

@@ -1,8 +1,7 @@
-﻿using HastaneYonetimSistemi.Models;
+using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.DataAccessLayer.Interfaces;
 using HastaneYonetimSistemi.Services.Interfaces;
 using Npgsql;
-using System.Collections.Generic;
 
 namespace HastaneYonetimSistemi.Services
 {
@@ -15,46 +14,39 @@ namespace HastaneYonetimSistemi.Services
             _ilacRepository = ilacRepository;
         }
 
-        public IEnumerable<IlacViewModel> GetAllIlaclar()
-        {
-            return _ilacRepository.GetAll();
-        }
+        public IEnumerable<IlacViewModel> GetAllIlaclar() => _ilacRepository.GetAll();
 
-        public (bool Success, string Message) EkleIlac(string ilacAd, int stokAdet)
+        public ServiceResult EkleIlac(string ilacAd, int stokAdet)
         {
             if (string.IsNullOrWhiteSpace(ilacAd))
-                return (false, "İlaç adı boş olamaz.");
-
+                return ServiceResult.Fail("İlaç adı boş olamaz.");
             try
             {
                 if (_ilacRepository.ExistsByName(ilacAd))
-                {
-                    return (false, "Bu isimde bir ilaç zaten sistemde kayıtlı.");
-                }
-
+                    return ServiceResult.Fail("Bu isimde bir ilaç zaten sistemde kayıtlı.");
                 _ilacRepository.Add(ilacAd, stokAdet);
-                return (true, $"'{ilacAd}' ilacı eklendi.");
+                return ServiceResult.Ok($"'{ilacAd}' ilacı eklendi.");
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return (false, ex.Message);
+                return ServiceResult.Fail(ex.Message);
             }
         }
 
-        public (bool Success, string Message) SilIlac(int ilacId)
+        public ServiceResult SilIlac(int ilacId)
         {
             try
             {
                 _ilacRepository.Delete(ilacId);
-                return (true, "İlaç silindi.");
+                return ServiceResult.Ok("İlaç silindi.");
             }
             catch (PostgresException)
             {
-                return (false, "Silinemedi: Bu ilaca bağlı reçeteler mevcut.");
+                return ServiceResult.Fail("Silinemedi: Bu ilaca bağlı reçeteler mevcut.");
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return (false, ex.Message);
+                return ServiceResult.Fail(ex.Message);
             }
         }
     }

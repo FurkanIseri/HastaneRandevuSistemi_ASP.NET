@@ -65,7 +65,6 @@
                             <span asp-validation-for="Cinsiyet" class="text-danger small"></span>
                         </div>
 
-                        <!-- FEATURE 1: Profile Photo Upload (Optional) -->
                         <div class="col-12">
                             <label asp-for="ProfilFotografi" class="form-label text-muted small fw-semibold text-uppercase">
                                 Profil Fotoğrafı <span class="text-lowercase fw-normal text-muted">(İsteğe Bağlı)</span>
@@ -90,7 +89,6 @@
 
 @section Scripts {
     <script>
-        // Image preview
         document.getElementById('fotoInput').addEventListener('change', function(e) {
             var file = e.target.files[0];
             if (file) {

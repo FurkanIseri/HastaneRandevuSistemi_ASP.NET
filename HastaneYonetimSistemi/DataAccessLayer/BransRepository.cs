@@ -1,4 +1,4 @@
-﻿using HastaneYonetimSistemi.Helpers;
+using HastaneYonetimSistemi.Helpers;
 using HastaneYonetimSistemi.Models;
 using HastaneYonetimSistemi.DataAccessLayer.Interfaces;
 using Npgsql;
@@ -41,8 +41,7 @@ namespace HastaneYonetimSistemi.DataAccessLayer
             using var conn = _bgl.baglanti();
             using var cmd = new NpgsqlCommand("SELECT COUNT(*) FROM branslar WHERE LOWER(TRIM(brans_ad)) = LOWER(TRIM(@p1))", conn);
             cmd.Parameters.AddWithValue("@p1", bransAd ?? string.Empty);
-            int count = Convert.ToInt32(cmd.ExecuteScalar());
-            return count > 0;
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
         }
 
         public void Add(string bransAd)
@@ -61,12 +60,9 @@ namespace HastaneYonetimSistemi.DataAccessLayer
             cmd.ExecuteNonQuery();
         }
 
-        // Just a helper if we wanted to check, but in current code it catches PostgresException on Delete
-        // So we can let it throw or handle it. I'll let it throw so the Service can catch it.
         public bool IsBransInUse(int bransId)
         {
-            // Placeholder, currently managed via foreign key constraint exception in DB
-            return false; 
+            return false;
         }
     }
 }
